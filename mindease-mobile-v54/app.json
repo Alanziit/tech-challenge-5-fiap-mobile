@@ -3,9 +3,13 @@
     "name": "MindEase Mobile",
     "slug": "mindease-mobile-v54",
     "sdkVersion": "54.0.0",
-    "entryPoint": "./App.tsx",
+    "orientation": "portrait",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
     "scheme": "mindease",
-    "platforms": ["ios", "android", "web"],
-    "orientation": "portrait"
+    "newArchEnabled": false
   }
 }
