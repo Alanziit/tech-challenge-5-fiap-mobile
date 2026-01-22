@@ -1,10 +1,9 @@
-
 import React, { useState } from 'react';
 import { View, Text, Switch, StyleSheet } from 'react-native';
+import { useTheme } from '../context/ThemeContext';
 
 export default function Preferences() {
-  const [highContrast, setHighContrast] = useState(false);
-  const [dyslexiaMode, setDyslexiaMode] = useState(false);
+  const { mode, setMode } = useTheme();
 
   return (
     <View style={styles.container}>
@@ -12,12 +11,26 @@ export default function Preferences() {
 
       <View style={styles.option}>
         <Text>Alto Contraste</Text>
-        <Switch value={highContrast} onValueChange={setHighContrast} />
+        <Switch
+          value={mode === 'contrast'}
+          onValueChange={(v) => setMode(v ? 'contrast' : 'default')}
+        />
       </View>
 
       <View style={styles.option}>
         <Text>Modo Dislexia</Text>
-        <Switch value={dyslexiaMode} onValueChange={setDyslexiaMode} />
+        <Switch
+          value={mode === 'dyslexia'}
+          onValueChange={(v) => setMode(v ? 'dyslexia' : 'default')}
+        />
+      </View>
+
+      <View style={styles.option}>
+        <Text>Modo TEA</Text>
+        <Switch
+          value={mode === 'tea'}
+          onValueChange={(v) => setMode(v ? 'tea' : 'default')}
+        />
       </View>
     </View>
   );
