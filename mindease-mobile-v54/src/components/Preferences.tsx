@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { View, Text, Switch, StyleSheet } from 'react-native';
-import { useTheme } from '../context/ThemeContext';
+import React from "react";
+import { StyleSheet, Switch, Text, View } from "react-native";
+import { useTheme } from "../infra/context/ThemeContext";
 
 export default function Preferences() {
   const { mode, setMode } = useTheme();
@@ -12,24 +12,24 @@ export default function Preferences() {
       <View style={styles.option}>
         <Text>Alto Contraste</Text>
         <Switch
-          value={mode === 'contrast'}
-          onValueChange={(v) => setMode(v ? 'contrast' : 'default')}
+          value={mode === "contrast"}
+          onValueChange={(v) => setMode(v ? "contrast" : "default")}
         />
       </View>
 
       <View style={styles.option}>
         <Text>Modo Dislexia</Text>
         <Switch
-          value={mode === 'dyslexia'}
-          onValueChange={(v) => setMode(v ? 'dyslexia' : 'default')}
+          value={mode === "dyslexia"}
+          onValueChange={(v) => setMode(v ? "dyslexia" : "default")}
         />
       </View>
 
       <View style={styles.option}>
         <Text>Modo TEA</Text>
         <Switch
-          value={mode === 'tea'}
-          onValueChange={(v) => setMode(v ? 'tea' : 'default')}
+          value={mode === "tea"}
+          onValueChange={(v) => setMode(v ? "tea" : "default")}
         />
       </View>
     </View>
@@ -39,5 +39,9 @@ export default function Preferences() {
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 20 },
   title: { fontSize: 24, marginBottom: 20 },
-  option: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10 }
+  option: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 10,
+  },
 });

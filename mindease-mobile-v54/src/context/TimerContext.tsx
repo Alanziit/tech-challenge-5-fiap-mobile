@@ -1,41 +1,67 @@
+import React, {
+    createContext,
+    ReactNode,
+    useContext,
+    useEffect,
+    useRef,
+    useState,
+} from "react";
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
-
-type TimerContextType = {
+interface ITimerContext {
   time: number;
   running: boolean;
   start: (seconds: number) => void;
   pause: () => void;
-};
+}
 
-const TimerContext = createContext<TimerContextType | null>(null);
+const TimerContext = createContext<ITimerContext | undefined>(undefined);
 
-export function TimerProvider({ children }: { children: React.ReactNode }) {
-  const [time, setTime] = useState(0);
-  const [running, setRunning] = useState(false);
+export const TimerProvider = ({ children }: { children: ReactNode }) => {
+  const [time, setTime] = useState<number>(0);
+  const [running, setRunning] = useState<boolean>(false);
+  const intervalRef = useRef<number | null>(null);
 
   useEffect(() => {
-    if (!running) return;
-    const i = setInterval(() => setTime(t => Math.max(t - 1, 0)), 1000);
-    return () => clearInterval(i);
-  }, [running]);
+    return () => {
+      if (intervalRef.current) window.clearInterval(intervalRef.current);
+    };
+  }, []);
 
   const start = (seconds: number) => {
+    if (intervalRef.current) window.clearInterval(intervalRef.current);
     setTime(seconds);
     setRunning(true);
+    intervalRef.current = window.setInterval(() => {
+      setTime((t) => {
+        if (t <= 1) {
+          if (intervalRef.current) window.clearInterval(intervalRef.current);
+          setRunning(false);
+          return 0;
+        }
+        return t - 1;
+      });
+    }, 1000);
   };
 
-  const pause = () => setRunning(false);
+  const pause = () => {
+    if (intervalRef.current) {
+      window.clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+    setRunning(false);
+  };
 
   return (
     <TimerContext.Provider value={{ time, running, start, pause }}>
       {children}
     </TimerContext.Provider>
   );
-}
+};
 
-export function useTimer() {
+export const useTimer = () => {
   const ctx = useContext(TimerContext);
-  if (!ctx) throw new Error("useTimer must be used inside TimerProvider");
+  if (!ctx) throw new Error("useTimer must be used within TimerProvider");
   return ctx;
-}
+};
+
+export default TimerProvider;
