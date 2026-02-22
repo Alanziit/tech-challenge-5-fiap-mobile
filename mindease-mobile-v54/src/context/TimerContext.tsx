@@ -19,22 +19,22 @@ const TimerContext = createContext<ITimerContext | undefined>(undefined);
 export const TimerProvider = ({ children }: { children: ReactNode }) => {
   const [time, setTime] = useState<number>(0);
   const [running, setRunning] = useState<boolean>(false);
-  const intervalRef = useRef<number | null>(null);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
     return () => {
-      if (intervalRef.current) window.clearInterval(intervalRef.current);
+      if (intervalRef.current) clearInterval(intervalRef.current as any);
     };
   }, []);
 
   const start = (seconds: number) => {
-    if (intervalRef.current) window.clearInterval(intervalRef.current);
+    if (intervalRef.current) clearInterval(intervalRef.current as any);
     setTime(seconds);
     setRunning(true);
-    intervalRef.current = window.setInterval(() => {
+    intervalRef.current = setInterval(() => {
       setTime((t) => {
         if (t <= 1) {
-          if (intervalRef.current) window.clearInterval(intervalRef.current);
+          if (intervalRef.current) clearInterval(intervalRef.current as any);
           setRunning(false);
           return 0;
         }
@@ -45,7 +45,7 @@ export const TimerProvider = ({ children }: { children: ReactNode }) => {
 
   const pause = () => {
     if (intervalRef.current) {
-      window.clearInterval(intervalRef.current);
+      clearInterval(intervalRef.current as any);
       intervalRef.current = null;
     }
     setRunning(false);

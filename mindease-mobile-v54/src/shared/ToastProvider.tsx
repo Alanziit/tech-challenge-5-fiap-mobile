@@ -1,16 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { StyleSheet, View } from "react-native";
 import ToastComponent from "./components/Toast";
 import { subscribe, ToastMessage } from "./toastService";
-
-const containerStyle: React.CSSProperties = {
-  position: "fixed",
-  top: 16,
-  right: 16,
-  display: "flex",
-  flexDirection: "column",
-  gap: 12,
-  zIndex: 9999,
-};
 
 export const ToastProvider: React.FC = () => {
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
@@ -27,9 +18,9 @@ export const ToastProvider: React.FC = () => {
   };
 
   return (
-    <div style={containerStyle} pointerEvents="none">
+    <View style={styles.container} pointerEvents="box-none">
       {toasts.map((t) => (
-        <div key={t.id} style={{ pointerEvents: "auto" }}>
+        <View key={t.id} style={styles.item} pointerEvents="auto">
           <ToastComponent
             id={t.id}
             message={t.message}
@@ -37,10 +28,24 @@ export const ToastProvider: React.FC = () => {
             duration={t.duration}
             onClose={handleClose}
           />
-        </div>
+        </View>
       ))}
-    </div>
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    position: "absolute",
+    top: 16,
+    right: 16,
+    flexDirection: "column",
+    gap: 12,
+    zIndex: 9999,
+  },
+  item: {
+    // preserve pointerEvents per-item
+  },
+});
 
 export default ToastProvider;
