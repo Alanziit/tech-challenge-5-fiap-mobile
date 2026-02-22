@@ -21,6 +21,16 @@ Este repositório contém a aplicação móvel desenvolvida com Expo + React Nat
 
 Aplicativo móvel para gerenciamento pessoal de tempo e tarefas com recursos básicos de Pomodoro, Kanban e perfis. Contém telas para cadastro/login, dashboard, preferências e um temporizador compartilhado via contexto.
 
+Público-alvo: pessoas com Transtorno do Espectro Autista (TEA). O aplicativo foi projetado com esse público em mente, priorizando uma interface simples, previsível e opções para reduzir sobrecarga sensorial. Funcionalidades e fluxos foram pensados para minimizar distrações e oferecer controles claros e acessíveis.
+
+**Considerações de acessibilidade para TEA**
+
+- Interface simplificada e previsível — poucas distrações e navegação consistente.
+- Controles e botões com alvos de toque maiores para facilitar interação.
+- Opções para reduzir animações/efeitos e ajustar sinais sonoros ou vibração.
+- Paleta de cores com contraste adequado e possibilidade futura de temas com menor estímulo visual.
+- Temporizadores e feedbacks visuais/sonoros claros e configuráveis para ajudar no gerenciamento de rotinas.
+
 **Tecnologias & versões**
 
 - **React Native:** 0.81.5
