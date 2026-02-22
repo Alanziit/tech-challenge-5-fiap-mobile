@@ -1,50 +1,148 @@
-# Welcome to your Expo app 👋
+# mindease-mobile-v54
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Aplicativo móvel MindEase — versão do repositório v54.
 
-## Get started
+Este repositório contém a aplicação móvel desenvolvida com Expo + React Native, focada em gerenciamento de tempo (Pomodoro), Kanban simples e perfis de usuário. Abaixo há documentação detalhada sobre a estrutura do projeto, tecnologias, como inicializar o projeto e onde localizar os principais componentes.
 
-1. Install dependencies
+**Status:** Código-fonte principal presente; configuração de Firebase em [src/firebaseConfig.tsx](src/firebaseConfig.tsx). Faça as configurações de credenciais antes de rodar em dispositivos reais.
 
-   ```bash
-   npm install
-   ```
+**Tabela de conteúdo**
 
-2. Start the app
+- **Descrição**
+- **Tecnologias & versões**
+- **Pré-requisitos**
+- **Instalação & execução**
+- **Estrutura de pastas**
+- **Configurações importantes**
+- **Diagrama (Mermaid)**
+- **Contribuição**
 
-   ```bash
-   npx expo start --tunnel
-   ```
+**Descrição**
 
-In the output, you'll find options to open the app in a
+Aplicativo móvel para gerenciamento pessoal de tempo e tarefas com recursos básicos de Pomodoro, Kanban e perfis. Contém telas para cadastro/login, dashboard, preferências e um temporizador compartilhado via contexto.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+**Tecnologias & versões**
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+- **React Native:** 0.81.5
+- **React:** 19.1.0
+- **React DOM / Web:** 19.1.0 / react-native-web ~0.20.0
+- **Expo:** ~54.0.31
+- **Navegação:** @react-navigation/native ^6.1.7, @react-navigation/native-stack ^6.9.12
+- **Firebase (libs):** @react-native-firebase/app ^23.8.6
+- **Async Storage:** @react-native-async-storage/async-storage 2.2.0
+- **TypeScript:** ~5.9.2
 
-## Get a fresh project
+As versões foram extraídas de `package.json`.
 
-When you're ready, run:
+**Pré-requisitos**
+
+- Node.js 18+ recomendado
+- npm 9+ ou yarn
+- Expo CLI (é possível usar via npx como nos scripts)
+- Conta / credenciais Firebase (se usar features que dependem do Firebase)
+
+**Instalação & execução**
+
+1. Instalar dependências:
 
 ```bash
-npm run reset-project
+npm install
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+2. Rodar o projeto com Expo (abrir dev tools):
 
-## Learn more
+```bash
+npm run start
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+3. Comandos úteis (definidos em `package.json`):
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+- `npm run android` — inicia o Expo e tenta abrir no emulador Android.
+- `npm run ios` — inicia o Expo e tenta abrir no simulador iOS (macOS necessário).
+- `npm run web` — roda versão web via `react-native-web`.
 
-## Join the community
+**Estrutura de pastas**
 
-Join our community of developers creating universal apps.
+Apresentamos a árvore principal e explicação dos diretórios mais relevantes.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+```mermaid
+graph TD
+  A[app.json / App.tsx] --> B[src]
+  B --> C[components]
+  B --> D[context]
+  B --> E[domain]
+  B --> F[infra]
+  B --> G[presentation]
+  B --> H[repository]
+  B --> I[shared]
+  C --> C1[Cadastro.tsx]
+  C --> C2[Dashboard.tsx]
+  C --> C3[Login.tsx]
+  C --> C4[Pomodoro.tsx]
+  C --> C5[Kanban.tsx]
+  C --> C6[Preferences.tsx]
+  D --> D1[TimerContext.tsx]
+  E --> E1[entities]
+  E --> E2[interfaces]
+  E --> E3[usecases]
+  F --> F1[cache]
+  F --> F2[context]
+  I --> I1[ToastProvider.tsx]
+  I --> I2[components/Toast.tsx]
+```
+
+- **Raiz**
+  - `App.tsx` — Entrada da aplicação.
+  - `app.json` — Configurações do Expo.
+
+- **src/**
+  - `firebaseConfig.tsx` — Configuração e inicialização do Firebase (preencha com suas credenciais).
+
+- **src/components/**
+  - `Cadastro.tsx` — Tela de cadastro.
+  - `Login.tsx` — Tela de login.
+  - `Dashboard.tsx` — Tela principal com visão geral.
+  - `Pomodoro.tsx` — UI do temporizador Pomodoro.
+  - `Kanban.tsx` — Quadro de tarefas simples.
+  - `Preferences.tsx` — Tela de preferências do usuário.
+
+- **src/context/**
+  - `TimerContext.tsx` — Contexto compartilhado do temporizador entre componentes.
+
+- **src/domain/**
+  - `entities/` — Entidades do domínio (`profile.entity.ts`, `user.entity.ts`).
+  - `interfaces/` — Interfaces de domínio.
+  - `usecases/` — Casos de uso (lógica de aplicação).
+
+- **src/infra/**
+  - `cache/` — Serviço de cache local.
+  - `context/` — Contextos de infra (Auth, Theme).
+
+- **src/presentation/**
+  - `ProfileController.ts`, `UserController.ts` — Camada de apresentação/controle.
+
+- **src/repository/**
+  - Repositórios de dados (`user.repository.ts`, `profile.repository.ts`).
+
+- **src/shared/**
+  - `ToastProvider.tsx`, `toastService.ts` — Sistema de notificações/toasts.
+  - `components/Toast.tsx`, `ToastContext.tsx` — UI e contexto de toasts.
+
+**Configurações importantes**
+
+- Antes de rodar em produção, configure o `src/firebaseConfig.tsx` com as chaves do seu projeto Firebase. O arquivo é o ponto central para integração com serviços Firebase.
+- Verifique permissões e regras do Firebase (Auth / Firestore) ao conectar com dados reais.
+
+**Como estender**
+
+- Para adicionar novas telas, crie o componente em `src/components/` e registre rotas no fluxo de navegação (provavelmente em `App.tsx` ou onde o navigator é definido).
+- Para novos casos de uso, adicione lógica em `src/domain/usecases` e atualize/usar repositórios em `src/repository`.
+
+**Contribuição**
+
+- Abra uma issue antes de grandes mudanças.
+- Envie PRs com descrição clara das alterações.
+
+---
+
+Se quiser, posso também gerar exemplos de configuração do `src/firebaseConfig.tsx` (sem chaves reais) ou adicionar instruções para CI/CD e testes. Diga como prefere prosseguir.
