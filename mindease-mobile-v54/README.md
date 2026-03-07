@@ -35,8 +35,8 @@ Público-alvo: pessoas com Transtorno do Espectro Autista (TEA). O aplicativo fo
 
 - **React Native:** 0.81.5
 - **React:** 19.1.0
-- **React DOM / Web:** 19.1.0 / react-native-web ~0.20.0
-- **Expo:** ~54.0.31
+- **React DOM / Web:** 19.1.0 / react-native-web ^0.21.0
+- **Expo:** ~54.0.33
 - **Navegação:** @react-navigation/native ^6.1.7, @react-navigation/native-stack ^6.9.12
 - **Firebase (libs):** @react-native-firebase/app ^23.8.6
 - **Async Storage:** @react-native-async-storage/async-storage 2.2.0
@@ -46,8 +46,8 @@ As versões foram extraídas de `package.json`.
 
 **Pré-requisitos**
 
-- Node.js 18+ recomendado
-- npm 9+ ou yarn
+- Node.js 20.19.4+ recomendado
+- npm 10+ ou yarn
 - Expo CLI (é possível usar via npx como nos scripts)
 - Conta / credenciais Firebase (se usar features que dependem do Firebase)
 
