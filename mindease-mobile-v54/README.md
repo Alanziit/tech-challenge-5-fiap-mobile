@@ -152,7 +152,3 @@ graph TD
 
 - Abra uma issue antes de grandes mudanças.
 - Envie PRs com descrição clara das alterações.
-
----
-
-Se quiser, posso também gerar exemplos de configuração do `src/firebaseConfig.tsx` (sem chaves reais) ou adicionar instruções para CI/CD e testes. Diga como prefere prosseguir.
